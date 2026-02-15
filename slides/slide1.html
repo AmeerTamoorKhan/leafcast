@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeafCast Presentation Title Slide</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Roboto:wght@300;400;500&amp;family=Lato:wght@300;400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .accent-bar {
+            background-color: #901A1E; /* Approximate UCPH Red */
+            height: 12px;
+            width: 100%;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 80px;
+            z-index: 10;
+        }
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            color: #1a202c;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .author-text {
+            font-family: 'Roboto', sans-serif;
+            color: #4a5568;
+        }
+        .affiliation-text {
+            font-family: 'Lato', sans-serif;
+            color: #718096;
+        }
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            background-color: #901A1E;
+        }
+        .leaf-icon {
+            color: #901A1E;
+            opacity: 0.1;
+            position: absolute;
+            font-size: 400px;
+            right: -50px;
+            bottom: -50px;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+        .top-left-decor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background-color: #f7fafc;
+            border-bottom-right-radius: 100%;
+            z-index: 0;
+        }
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(144, 26, 30, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(144, 26, 30, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            pointer-events: none; /* Ensure it doesn't block interactions if any */
+        }
+        /* Override gradient constraint by using SVG or solid colors, avoided linear-gradient for main bg */
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Decorative Background Elements -->
+<div class="top-left-decor"></div>
+<div class="decorative-circle" style="width: 600px; height: 600px; top: -200px; right: -200px;"></div>
+<div class="decorative-circle" style="width: 300px; height: 300px; bottom: 50px; left: -100px;"></div>
+<!-- Subtle Grid Pattern -->
+<div class="grid-pattern"></div>
+<!-- Large watermark icon -->
+<i class="fas fa-leaf leaf-icon"></i>
+<!-- Top Accent Bar -->
+<div class="accent-bar"></div>
+<!-- Main Content -->
+<div class="main-content text-center">
+<!-- Metadata Badge -->
+<div class="mb-8">
+<p class="inline-block px-4 py-1 rounded-full border border-gray-300 bg-white text-gray-500 text-sm font-medium tracking-wide uppercase font-sans">
+                    Lunch Box Seminar
+                </p>
+</div>
+<!-- Title -->
+<div class="mb-10 max-w-5xl">
+<h1 class="title-text text-6xl font-bold mb-4">
+                    LeafCast
+                </h1>
+<h2 class="title-text text-4xl font-normal text-gray-700">
+                    A Lightweight Edge-Deployable Network for Temporal Plant Growth Prediction
+                </h2>
+</div>
+<!-- Divider -->
+<div class="w-24 h-1 bg-red-800 mb-10 rounded"></div>
+<!-- Authors -->
+<div class="mb-8">
+<p class="author-text text-2xl font-medium mb-2">
+                    Ameer Tamoor Khan  •  Valentine Guzniczak  •  Signe Marie Jensen
+                </p>
+</div>
+<!-- Affiliation -->
+<div class="affiliation-text text-xl">
+<p class="mb-1">Department of Plant and Environmental Sciences</p>
+<p class="font-semibold text-gray-600">University of Copenhagen</p>
+<p class="text-sm mt-4 text-gray-400">PhenoLab, Taastrup, Denmark</p>
+</div>
+</div>
+<!-- Bottom Footer Area -->
+<div class="flex justify-between items-end px-12 py-6 z-10 w-full mt-auto">
+<div class="flex items-center gap-3">
+<!-- Placeholder for Logo - styled text representation -->
+<div class="flex flex-col border-l-4 border-red-800 pl-3">
+<p class="text-xs font-bold text-gray-800 uppercase tracking-widest leading-none">University of</p>
+<p class="text-sm font-bold text-red-900 uppercase tracking-widest leading-none mt-1">Copenhagen</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-gray-400 text-sm font-mono">February 14, 2026</p>
+</div>
+</div>
+<!-- Bottom Accent Line -->
+<div class="w-full h-2 bg-gray-100"></div>
+</div>
+</body>
+</html>

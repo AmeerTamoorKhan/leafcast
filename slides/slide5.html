@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeafCast Solution Overview</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Roboto:wght@300;400;500;700;900&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .accent-bar {
+            background-color: #901A1E; /* UCPH Red */
+            height: 8px;
+            width: 100%;
+        }
+        .header {
+            padding: 30px 60px 10px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            color: #1a202c;
+            font-size: 2.2rem;
+            line-height: 1.1;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px 60px 40px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* Metrics Row */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .metric-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .metric-card:nth-child(1) { border-top: 4px solid #901A1E; }
+        .metric-card:nth-child(2) { border-top: 4px solid #2d3748; }
+        .metric-card:nth-child(3) { border-top: 4px solid #38a169; }
+        .metric-card:nth-child(4) { border-top: 4px solid #3182ce; }
+
+        .metric-value {
+            font-family: 'Roboto', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .metric-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+        .metric-sub {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            color: #a0aec0;
+            margin-top: 8px;
+        }
+
+        /* Innovations Section */
+        .innovations-container {
+            flex: 1;
+            background-color: #f8fafc;
+            border-radius: 16px;
+            padding: 25px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .innovations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            height: 100%;
+        }
+        .innovation-item {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .innovation-icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #901A1E;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .innovation-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a202c;
+        }
+        .innovation-desc {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            border-top: 1px solid #f7fafc;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Accent Bar -->
+<div class="accent-bar"></div>
+<!-- Header -->
+<div class="header">
+<div>
+<h1 class="title-text">LeafCast: Solution at a Glance</h1>
+<p class="text-gray-500 font-sans text-sm mt-1">High-performance growth prediction on edge devices</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Overview</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- Top Row: Metrics -->
+<div class="metrics-grid">
+<!-- Metric 1 -->
+<div class="metric-card">
+<div class="metric-value text-red-900">3.9 M</div>
+<div class="metric-label">Parameters</div>
+<div class="metric-sub">
+<i class="fas fa-microchip mr-1"></i> Ultra-Lightweight
+                    </div>
+</div>
+<!-- Metric 2 -->
+<div class="metric-card">
+<div class="metric-value text-gray-800">55×</div>
+<div class="metric-label">Reduction</div>
+<div class="metric-sub">
+<i class="fas fa-compress-arrows-alt mr-1"></i> vs. Pix2Pix
+                    </div>
+</div>
+<!-- Metric 3 -->
+<div class="metric-card">
+<div class="metric-value text-green-600">83.6 ms</div>
+<div class="metric-label">Inference Time</div>
+<div class="metric-sub">
+<i class="fas fa-bolt mr-1"></i> Real-time Edge (ONNX)
+                    </div>
+</div>
+<!-- Metric 4 -->
+<div class="metric-card">
+<div class="metric-value text-blue-600">34.17</div>
+<div class="metric-label">PSNR (dB)</div>
+<div class="metric-sub">
+<i class="fas fa-star mr-1"></i> High Fidelity
+                    </div>
+</div>
+</div>
+<!-- Bottom Row: Innovations -->
+<div class="innovations-container shadow-inner border border-gray-100">
+<div class="section-label">
+<i class="fas fa-cogs text-red-800"></i>
+<span>Architectural Innovations</span>
+</div>
+<div class="innovations-grid">
+<!-- Innovation 1 -->
+<div class="innovation-item">
+<div class="flex items-center gap-4">
+<div class="innovation-icon-box text-red-800">
+<i class="fas fa-crosshairs"></i>
+</div>
+<div>
+<h3 class="innovation-title">Plant-Aware Attention Gates</h3>
+</div>
+</div>
+<p class="innovation-desc">
+                            Dynamically directs computational resources toward biologically meaningful regions, ignoring static backgrounds to maximize efficiency.
+                        </p>
+</div>
+<!-- Innovation 2 -->
+<div class="innovation-item">
+<div class="flex items-center gap-4">
+<div class="innovation-icon-box text-blue-700">
+<i class="fas fa-fingerprint"></i>
+</div>
+<div>
+<h3 class="innovation-title">Texture Refinement Blocks</h3>
+</div>
+</div>
+<p class="innovation-desc">
+                            Utilizes multi-scale dilated convolutions to preserve fine leaf details and venation patterns often lost in lightweight architectures.
+                        </p>
+</div>
+<!-- Innovation 3 -->
+<div class="innovation-item">
+<div class="flex items-center gap-4">
+<div class="innovation-icon-box text-green-700">
+<i class="fas fa-crop-alt"></i>
+</div>
+<div>
+<h3 class="innovation-title">Crop-Focused Loss</h3>
+</div>
+</div>
+<p class="innovation-desc">
+                            A specialized loss function that explicitly weights prediction errors by their biological relevance, prioritizing growth regions over soil.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>5 / 15</p>
+</div>
+</div>
+</body>
+</html>

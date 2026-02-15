@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Key Components: LeafCast Innovations</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Roboto:wght@300;400;500;700;900&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .accent-bar {
+            background-color: #901A1E; /* UCPH Red */
+            height: 100px;
+            width: 100%;
+        }
+        .header {
+            padding: 25px 60px 10px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            color: #1a202c;
+            font-size: 2.2rem;
+            line-height: 1.1;
+        }
+        .main-content {
+            flex: 1;
+            padding: 30px 60px 50px 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch;
+        }
+        
+        /* Feature Columns */
+        .feature-col {
+            background-color: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        
+        /* Top Visual Area */
+        .visual-area {
+            height: 180px;
+            background-color: #f7fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid #edf2f7;
+        }
+        
+        /* Content Area */
+        .content-area {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feature-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        
+        .feature-desc {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+        
+        .feature-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            width: fit-content;
+        }
+
+        /* Technical schematic visuals using CSS */
+        /* Green Aware Visual */
+        .layer-stack {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .layer {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-color: white;
+            border: 2px solid #cbd5e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #a0aec0;
+        }
+        .layer.r { top: 0; left: 0; z-index: 1; }
+        .layer.g { 
+            top: 15px; left: 15px; z-index: 3; 
+            border-color: #48bb78; 
+            background-color: #f0fff4;
+            color: #2f855a;
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px rgba(72, 187, 120, 0.2);
+        }
+        .layer.b { top: 30px; left: 30px; z-index: 2; }
+        
+        /* Attention Visual */
+        .attention-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            width: 80px;
+            height: 80px;
+        }
+        .grid-cell {
+            background-color: #e2e8f0;
+            border-radius: 4px;
+        }
+        .grid-cell.active {
+            background-color: #901A1E;
+            box-shadow: 0 0 15px rgba(144, 26, 30, 0.4);
+        }
+        .grid-cell.semi {
+            background-color: #feb2b2;
+        }
+        
+        /* Texture Visual */
+        .dilation-visual {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dil-box {
+            position: absolute;
+            border: 2px dashed #4299e1;
+            background-color: transparent;
+            border-radius: 4px;
+        }
+        .dil-1 { width: 20px; height: 20px; border-style: solid; background-color: #ebf8ff; }
+        .dil-2 { width: 50px; height: 50px; opacity: 0.6; }
+        .dil-3 { width: 80px; height: 80px; opacity: 0.3; }
+
+        .footer {
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            border-top: 1px solid #f7fafc;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Accent Bar -->
+<div class="accent-bar"></div>
+<!-- Header -->
+<div class="header">
+<div>
+<h1 class="title-text">Key Technical Components</h1>
+<p class="text-gray-500 font-sans text-sm mt-1">Specialized modules for plant-specific learning</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Innovation Details</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- Column 1: Green-Aware Input -->
+<div class="feature-col border-t-4 border-green-500">
+<div class="visual-area">
+<div class="layer-stack">
+<div class="layer b">B</div>
+<div class="layer r">R</div>
+<div class="layer g">G</div>
+</div>
+<div class="absolute bottom-4 right-4 text-green-600 opacity-20 text-4xl">
+<i class="fas fa-filter"></i>
+</div>
+</div>
+<div class="content-area">
+<h2 class="feature-title text-green-900">Green-Aware Input Encoding</h2>
+<p class="feature-desc">
+                        Standard convolutions treat all color channels equally. LeafCast applies learnable channel weights initialized to emphasize <strong>green (chlorophyll)</strong> signals immediately.
+                    </p>
+<p class="feature-desc text-sm border-l-2 border-green-200 pl-3 italic">
+                        Includes a parallel texture path with depthwise separable convolutions to capture structural details early.
+                    </p>
+<div class="mt-auto">
+<span class="feature-tag bg-green-100 text-green-700">Biological Bias</span>
+</div>
+</div>
+</div>
+<!-- Column 2: Plant Attention Gates -->
+<div class="feature-col border-t-4 border-red-800">
+<div class="visual-area">
+<div class="attention-grid">
+<div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+<div class="grid-cell"></div><div class="grid-cell active"></div><div class="grid-cell semi"></div>
+<div class="grid-cell"></div><div class="grid-cell semi"></div><div class="grid-cell"></div>
+</div>
+<div class="absolute bottom-4 right-4 text-red-800 opacity-10 text-4xl">
+<i class="fas fa-crosshairs"></i>
+</div>
+</div>
+<div class="content-area">
+<h2 class="feature-title text-red-900">Plant Attention Gates</h2>
+<p class="feature-desc">
+                        Combines spatial and channel attention to focus computation solely on the plant, suppressing the 80%+ of pixels that are static background.
+                    </p>
+<div class="bg-red-50 p-3 rounded-lg mb-4">
+<p class="text-xs font-mono text-red-800 font-bold">
+                            y = (1-α)·x + α·x<sub>attended</sub>
+</p>
+<p class="text-xs text-red-600 mt-1">Learnable blend (α) ensures stability.</p>
+</div>
+<div class="mt-auto">
+<span class="feature-tag bg-red-100 text-red-800">Resource Focus</span>
+</div>
+</div>
+</div>
+<!-- Column 3: Texture Refinement -->
+<div class="feature-col border-t-4 border-blue-500">
+<div class="visual-area">
+<div class="dilation-visual">
+<div class="dil-box dil-3"></div>
+<div class="dil-box dil-2"></div>
+<div class="dil-box dil-1"></div>
+</div>
+<div class="absolute bottom-4 right-4 text-blue-600 opacity-20 text-4xl">
+<i class="fas fa-fingerprint"></i>
+</div>
+</div>
+<div class="content-area">
+<h2 class="feature-title text-blue-900">Texture Refinement</h2>
+<p class="feature-desc">
+                        Lightweight models often blur high-frequency details. This block uses parallel branches with different <strong>dilation rates (1, 2, 3)</strong> to capture multi-scale texture cues.
+                    </p>
+<p class="feature-desc text-sm border-l-2 border-blue-200 pl-3 italic">
+                        Strategically placed at 48×48 and 96×96 decoder stages to recover venation and leaf boundaries.
+                    </p>
+<div class="mt-auto">
+<span class="feature-tag bg-blue-100 text-blue-700">Detail Recovery</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>7 / 15</p>
+</div>
+</div>
+</body>
+</html>

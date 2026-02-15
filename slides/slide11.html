@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Applications and Edge Deployment</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+  body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+  .slide-container { width: 1280px; height: 720px; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; }
+  .accent-bar { background-color: #901A1E; height: 8px; width: 100%; flex-shrink: 0; }
+  .header { padding: 18px 50px 8px 50px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .title-text { font-family: 'Playfair Display', serif; color: #1a202c; font-size: 1.9rem; margin: 0; line-height: 1.1; }
+  .header-subtitle { font-family: 'Roboto', sans-serif; font-size: 0.8rem; color: #718096; margin: 2px 0 0 0; }
+  .header-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: #a0aec0; }
+  .main-content { flex: 1; padding: 15px 50px 45px 50px; display: flex; gap: 30px; min-height: 0; }
+  .left-column { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .column-title { font-family: 'Roboto', sans-serif; font-size: 0.95rem; font-weight: 700; color: #2d3748; margin-bottom: 6px; }
+  .device-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; display: flex; gap: 12px; align-items: flex-start; }
+  .device-icon { width: 40px; height: 40px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #2d3748; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+  .device-info h3 { font-family: 'Roboto', sans-serif; font-size: 0.9rem; font-weight: 700; color: #2d3748; margin: 0; }
+  .device-info p { font-family: 'Lato', sans-serif; font-size: 0.8rem; color: #718096; margin: 3px 0 0 0; line-height: 1.3; }
+  .right-column { flex: 1.3; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .use-case-card { background-color: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; border-top: 4px solid #cbd5e0; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+  .use-case-card.highlight { border-top-color: #901A1E; background-color: #fff5f5; }
+  .card-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 8px; }
+  .card-title { font-family: 'Roboto', sans-serif; font-size: 0.95rem; font-weight: 700; color: #1a202c; margin-bottom: 6px; }
+  .card-desc { font-family: 'Lato', sans-serif; font-size: 0.8rem; color: #4a5568; line-height: 1.4; margin: 0; }
+  .pipeline-box { background-color: white; border: 1px dashed #cbd5e0; border-radius: 8px; padding: 12px; }
+  .pipeline-title { font-family: 'Roboto', sans-serif; font-size: 0.8rem; font-weight: 700; color: #718096; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .steps { display: flex; justify-content: space-between; align-items: center; gap: 4px; margin-bottom: 6px; }
+  .step { display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 0.75rem; }
+  .step-circle { width: 28px; height: 28px; border-radius: 50%; background-color: #edf2f7; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #4a5568; margin-bottom: 3px; border: 2px solid #cbd5e0; }
+  .step.active .step-circle { background-color: #901A1E; color: white; border-color: #741115; }
+  .step-label { font-family: 'Roboto', sans-serif; font-size: 0.65rem; font-weight: 600; color: #718096; }
+  .arrow-step { width: 12px; height: 2px; background-color: #cbd5e0; }
+  .metric-badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; background-color: #e2e8f0; color: #4a5568; margin-top: 6px; }
+  .footer { padding: 10px 50px; display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto', sans-serif; font-size: 0.75rem; color: #a0aec0; border-top: 1px solid #f7fafc; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="accent-bar"></div>
+<div class="header">
+<div>
+<h1 class="title-text">Applications & Edge Deployment</h1>
+<p class="header-subtitle">Real-time capabilities for in-field precision agriculture</p>
+</div>
+<p class="header-label">Practical Implementation</p>
+</div>
+<div class="main-content">
+<div class="left-column">
+<h3 class="column-title">Target Hardware</h3>
+<div class="device-card">
+<div class="device-icon" style="color: #3182ce;"><i class="fas fa-mobile-alt"></i></div>
+<div class="device-info">
+<h3>Smartphones</h3>
+<p>Portable tools for field scouting.</p>
+</div>
+</div>
+<div class="device-card">
+<div class="device-icon" style="color: #38a169;"><i class="fas fa-robot"></i></div>
+<div class="device-info">
+<h3>Phenotyping Robots</h3>
+<p>Integrated vision systems for automated measurements.</p>
+</div>
+</div>
+<div class="device-card">
+<div class="device-icon" style="color: #d97706;"><i class="fas fa-microchip"></i></div>
+<div class="device-info">
+<h3>IoT Systems</h3>
+<p>Low-power embedded nodes (Raspberry Pi class).</p>
+</div>
+</div>
+<div class="pipeline-box">
+<p class="pipeline-title">Inference Pipeline</p>
+<div class="steps">
+<div class="step"><div class="step-circle"><i class="fas fa-camera"></i></div><p class="step-label">Capture</p></div>
+<div class="arrow-step"></div>
+<div class="step"><div class="step-circle"><i class="fas fa-crop-alt"></i></div><p class="step-label">Preprocess</p></div>
+<div class="arrow-step"></div>
+<div class="step active"><div class="step-circle"><i class="fas fa-brain"></i></div><p class="step-label">Infer</p></div>
+<div class="arrow-step"></div>
+<div class="step"><div class="step-circle"><i class="fas fa-wifi"></i></div><p class="step-label">Act</p></div>
+</div>
+<p style="font-family: 'Roboto', sans-serif; font-size: 0.75rem; color: #4a5568; text-align: center; margin: 0;"><span class="metric-badge"><i class="fas fa-tachometer-alt"></i> 12 FPS</span></p>
+</div>
+</div>
+<div class="right-column">
+<div class="use-case-card highlight">
+<div class="card-icon" style="background-color: #fed7d7; color: #901A1E;"><i class="fas fa-chart-line"></i></div>
+<h3 class="card-title">Growth Forecasting</h3>
+<p class="card-desc">Predict appearance 7-19 days into future to estimate biomass before it occurs.</p>
+</div>
+<div class="use-case-card" style="border-top-color: #38a169;">
+<div class="card-icon" style="background-color: #d4f4dd; color: #2f855a;"><i class="fas fa-seedling"></i></div>
+<h3 class="card-title">Stress Monitoring</h3>
+<p class="card-desc">Visualize potential future stress symptoms for early intervention decisions.</p>
+</div>
+<div class="use-case-card" style="border-top-color: #3182ce;">
+<div class="card-icon" style="background-color: #bee3f8; color: #1e3a8a;"><i class="fas fa-clipboard-check"></i></div>
+<h3 class="card-title">Proactive Management</h3>
+<p class="card-desc">Shift crop management from reactive to proactive based on simulated outcomes.</p>
+</div>
+<div class="use-case-card" style="border-top-color: #d97706;">
+<div class="card-icon" style="background-color: #fef3c7; color: #b45309;"><i class="fas fa-cloud-sun"></i></div>
+<h3 class="card-title">Scenario Analysis</h3>
+<p class="card-desc">Condition predictions on environmental variables (water, temp) for what-if scenarios.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>14 / 15</p>
+</div>
+</div>
+</body>
+</html>

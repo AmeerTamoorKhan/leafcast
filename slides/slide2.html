@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Introduction: Why Predict Plant Growth?</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Roboto:wght@300;400;500;700&amp;family=Lato:wght@300;400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .accent-bar {
+            background-color: #901A1E; /* UCPH Red */
+            height: 8px;
+            width: 100%;
+        }
+        .header {
+            padding: 40px 60px 20px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            color: #1a202c;
+            font-size: 2.2rem;
+            line-height: 1.1;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            padding: 40px 60px;
+            gap: 60px;
+            align-items: flex-start;
+        }
+        .text-column {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .visual-column {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #edf2f7;
+            position: relative;
+        }
+
+        .bullet-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .bullet-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #fff5f5;
+            color: #901A1E;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .bullet-text {
+            font-family: 'Roboto', sans-serif;
+            color: #4a5568;
+            font-size: 1.5rem;
+            line-height: 1.5;
+        }
+        .bullet-subtext {
+            font-family: 'Lato', sans-serif;
+            color: #718096;
+            font-size: 1.1rem;
+            margin-top: 5px;
+            display: block;
+        }
+        .footer {
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            color: #a0aec0;
+            border-top: 1px solid #f7fafc;
+        }
+        /* Custom visualization styles */
+        .plant-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            height: 4px;
+            background-color: #cbd5e0;
+            z-index: 1;
+        }
+        .plant-stage {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100px;
+        }
+        .stage-icon {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border: 3px solid #901A1E;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #901A1E;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stage-label {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .prediction-arrow {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 40px;
+            border-top: 2px dashed #901A1E;
+            border-left: 2px dashed #901A1E;
+            border-right: 2px dashed #901A1E;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .prediction-label {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #901A1E;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Accent Bar -->
+<div class="accent-bar"></div>
+<!-- Header -->
+<div class="header">
+<h1 class="title-text">Introduction: Why Predict Plant Growth?</h1>
+<div class="text-right">
+<p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Background</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- Text Content -->
+<div class="text-column">
+<div class="bullet-point">
+<div class="bullet-icon"><i class="fas fa-seedling"></i></div>
+<div>
+<p class="bullet-text font-medium">Critical Role of Phenotyping</p>
+<p class="bullet-subtext">Essential for modern breeding, agronomy, and understanding stress responses. Growers rely on accurate trait measurement.</p>
+</div>
+</div>
+<div class="bullet-point">
+<div class="bullet-icon"><i class="fas fa-robot"></i></div>
+<div>
+<p class="bullet-text font-medium">Automation &amp; Scalability Needs</p>
+<p class="bullet-subtext">Traditional manual assessment is labor-intensive and destructive. Automated, non-destructive imaging is required for large-scale trials.</p>
+</div>
+</div>
+<div class="bullet-point">
+<div class="bullet-icon"><i class="fas fa-crystal-ball"></i></div>
+<div>
+<p class="bullet-text font-medium">Generative Predictive Modeling</p>
+<p class="bullet-subtext">Goes beyond current state assessment to <strong>forecasting</strong> future appearance from a single early observation.</p>
+</div>
+</div>
+<div class="bullet-point">
+<div class="bullet-icon"><i class="fas fa-chart-line"></i></div>
+<div>
+<p class="bullet-text font-medium">Proactive Crop Management</p>
+<p class="bullet-subtext">Enables anticipation of growth trajectories, allowing for intervention <em>before</em> problems manifest visually.</p>
+</div>
+</div>
+</div>
+<!-- Visual Content -->
+<div class="visual-column">
+<div class="w-full text-center mb-6">
+<h3 class="text-xl font-serif text-gray-800 font-bold mb-10">Predictive Phenotyping Concept</h3>
+<p class="text-sm text-gray-500">Forecasting future states from early data</p>
+</div>
+<div class="plant-timeline">
+<div class="timeline-line"></div>
+<div class="plant-stage">
+<div class="stage-icon"><i class="fas fa-camera"></i></div>
+<p class="stage-label">Current Observation<br/><span class="text-gray-400 font-normal text-xs">(Day T)</span></p>
+</div>
+<div class="plant-stage" style="opacity: 0.5;">
+<div class="stage-icon border-gray-400 text-gray-400"><i class="fas fa-clock"></i></div>
+<p class="stage-label text-gray-400">Growth<br/>Gap</p>
+</div>
+<div class="plant-stage">
+<div class="stage-icon bg-red-50"><i class="fas fa-image"></i></div>
+<p class="stage-label">Predicted State<br/><span class="text-gray-400 font-normal text-xs">(Day T+N)</span></p>
+</div>
+<!-- Prediction Arc -->
+<div style="position: absolute; top: -40px; left: 50px; right: 50px; height: 60px; pointer-events: none;">
+<svg height="100%" preserveaspectratio="none" viewbox="0 0 300 60" width="100%">
+<path d="M 20,50 Q 150,-20 280,50" fill="none" marker-end="url(#arrowhead)" stroke="#901A1E" stroke-dasharray="5,5" stroke-width="2"></path>
+<defs>
+<marker id="arrowhead" markerheight="7" markerwidth="10" orient="auto" refx="9" refy="3.5">
+<polygon fill="#901A1E" points="0 0, 10 3.5, 0 7"></polygon>
+</marker>
+</defs>
+</svg>
+<div class="prediction-label">Generative AI Prediction</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-white rounded-lg shadow-sm border border-gray-100 w-full">
+<div class="flex items-center gap-3 mb-2">
+<i class="fas fa-bullseye text-red-800"></i>
+<p class="font-bold text-gray-700 text-sm">Goal</p>
+</div>
+<p class="text-sm text-gray-600 italic">"Predict what a plant will look like in the future based on its current appearance."</p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>2 / 15</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Problem Statement: Existing Methods Don't Fit the Edge</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Roboto:wght@300;400;500;700&amp;family=Lato:wght@300;400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .accent-bar {
+            background-color: #901A1E; /* UCPH Red */
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+        .header {
+            padding: 20px 50px 15px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            color: #1a202c;
+            font-size: 2.2rem;
+            line-height: 1.1;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            padding: 25px 50px;
+            gap: 35px;
+            align-items: stretch;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        /* Left Column: The "Heavy" Problem */
+        .left-panel {
+            flex: 1;
+            background-color: #fff5f5; /* Light red bg */
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #fed7d7;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(144, 26, 30, 0.05);
+            border-left: 5px solid #901A1E;
+            margin-bottom: 12px;
+        }
+        .stat-value {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #901A1E;
+            line-height: 1;
+        }
+        .stat-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 5px;
+        }
+        
+        /* Right Column: The "Edge" Reality */
+        .right-panel {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            overflow: hidden;
+        }
+        .callout-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .callout-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #2d3748;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .callout-content h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            color: #2d3748;
+            margin: 0 0 4px 0;
+            font-weight: 700;
+        }
+        .callout-content p {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        /* Comparison Graphic */
+        .comparison-bar {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            background-color: #901A1E;
+        }
+        
+        .footer {
+            padding: 12px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            border-top: 1px solid #f7fafc;
+            flex-shrink: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Accent Bar -->
+<div class="accent-bar"></div>
+<!-- Header -->
+<div class="header">
+<h1 class="title-text">Problem Statement: The Edge Bottleneck</h1>
+<div class="text-right">
+<p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Challenges</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- LEFT: The Heavy Model (Pix2Pix) -->
+<div class="left-panel shadow-inner">
+<div class="flex items-center gap-2 mb-3">
+<i class="fas fa-weight-hanging text-red-800 text-lg"></i>
+<h2 class="text-lg font-bold text-gray-800 font-serif">Standard Pix2Pix Cost</h2>
+</div>
+<div class="stat-card">
+<div class="flex justify-between items-center">
+<div>
+<p class="stat-value">217 M</p>
+<p class="stat-label">Parameters</p>
+</div>
+<i class="fas fa-layer-group text-red-200 text-4xl"></i>
+</div>
+</div>
+<div class="stat-card">
+<div class="flex justify-between items-center">
+<div>
+<p class="stat-value">71.7 G</p>
+<p class="stat-label">FLOPs</p>
+</div>
+<i class="fas fa-microchip text-red-200 text-4xl"></i>
+</div>
+</div>
+<div class="stat-card" style="border-left-color: #2d3748;">
+<div class="flex justify-between items-center">
+<div>
+<p class="stat-value" style="color: #2d3748;">1.40 s</p>
+<p class="stat-label">Inference Time (CPU)</p>
+</div>
+<i class="fas fa-stopwatch text-gray-200 text-4xl"></i>
+</div>
+<!-- Comparison bar visual -->
+<div class="mt-3">
+<div class="flex justify-between text-xs text-gray-500 mb-1">
+<span>Target: &lt;100ms</span>
+<span>Current</span>
+</div>
+<div class="comparison-bar">
+<div class="bar-fill" style="width: 30%; background-color: #e53e3e;"></div>
+</div>
+</div>
+</div>
+
+<div class="stat-card" style="border-left-color: #2d3748;">
+<div class="flex justify-between items-center">
+<div>
+<p class="stat-value" style="color: #2d3748;">4-5 s</p>
+<p class="stat-label">Inference Time (Raspberry Pi)</p>
+</div>
+<i class="fas fa-stopwatch text-gray-200 text-4xl"></i>
+</div>
+<!-- Comparison bar visual -->
+<div class="mt-3">
+<div class="flex justify-between text-xs text-gray-500 mb-1">
+<span>Target: &lt;100ms</span>
+<span>Current</span>
+</div>
+<div class="comparison-bar">
+<div class="bar-fill" style="width: 100%; background-color: #e53e3e;"></div>
+</div>
+</div>
+</div>
+
+
+</div>
+<!-- RIGHT: The Constraints & Inefficiencies -->
+<div class="right-panel">
+<div class="mb-1">
+<h2 class="text-xl font-bold text-gray-800 font-serif mb-1">Why Existing Methods Fail</h2>
+<p class="text-gray-500 text-sm">Traditional generative models are ill-suited for field phenotyping applications.</p>
+</div>
+<!-- Callout 1: Hardware -->
+<div class="callout-box shadow-sm">
+<div class="callout-icon bg-gray-700">
+<i class="fas fa-mobile-alt"></i>
+</div>
+<div class="callout-content">
+<h3>Hardware Incompatibility</h3>
+<p>Field deployment relies on smartphones, drones, and robots with limited battery and compute. Heavy GPU-based models like Pix2Pix drain resources instantly.</p>
+</div>
+</div>
+<!-- Callout 2: Efficiency -->
+<div class="callout-box shadow-sm">
+<div class="callout-icon bg-gray-700">
+<i class="fas fa-expand-arrows-alt"></i>
+</div>
+<div class="callout-content">
+<h3>Inefficient Resource Allocation</h3>
+<p>Plants only occupy <strong>10-20%</strong> of the image. Standard models waste massive capacity reconstructing static backgrounds (soil, pots) with full fidelity.</p>
+</div>
+</div>
+<!-- Summary / Goal -->
+<div class="bg-blue-50 border border-blue-100 rounded-lg p-3 flex items-center gap-3 mt-auto flex-shrink-0">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+<i class="fas fa-lightbulb text-sm"></i>
+</div>
+<div>
+<p class="text-blue-900 font-bold text-xs uppercase tracking-wide">Objective</p>
+<p class="text-blue-800 font-medium text-sm leading-tight">High-quality predictions on edge devices</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>4 / 15</p>
+</div>
+</div>
+</body>
+</html>

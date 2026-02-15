@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dataset & Temporal Pairing Strategy</title>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    overflow: hidden;
+}
+
+.slide-container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accent-bar {
+    background-color: #901A1E;
+    height: 8px;
+    width: 100%;
+}
+
+.header {
+    padding: 30px 60px 10px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-text {
+    font-family: 'Playfair Display', serif;
+    color: #1a202c;
+    font-size: 2.2rem;
+    line-height: 1.1;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px 60px 40px 60px;
+    display: flex;
+    gap: 40px;
+}
+
+/* LEFT COLUMN */
+
+.info-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-box {
+    background-color: #f8fafc;
+    border-left: 5px solid #901A1E;
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stat-number {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #2d3748;
+}
+
+.stat-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 5px;
+}
+
+.data-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.data-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #fff5f5;
+    color: #901A1E;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.item-content h4 {
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.item-content p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* RIGHT COLUMN */
+
+.visual-column {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image-card {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.pairing-visual {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    position: relative;
+}
+
+.plant-frame {
+    width: 160px;
+    height: 160px;
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #cbd5e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plant-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.arrow-connector {
+    flex: 1;
+    height: 2px;
+    background-color: #901A1E;
+    position: relative;
+    margin: 0 20px;
+}
+
+.arrow-connector::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -4px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid #901A1E;
+}
+
+.time-badge {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff5f5;
+    color: #901A1E;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid #feb2b2;
+}
+
+.split-bar {
+    display: flex;
+    height: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+.footer {
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #a0aec0;
+    border-top: 1px solid #f7fafc;
+}
+</style>
+</head>
+
+<body>
+<div class="slide-container">
+
+<div class="accent-bar"></div>
+
+<div class="header">
+<div>
+<h1 class="title-text">Dataset & Temporal Pairing</h1>
+<p class="text-gray-500 text-sm mt-1">Experimental setup and data construction strategy</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Experimental Setup</p>
+</div>
+</div>
+
+<div class="main-content">
+
+<!-- LEFT -->
+<div class="info-column">
+
+<div class="stat-box">
+<div>
+<div class="stat-number">5,669</div>
+<div class="stat-label">Paired Images</div>
+</div>
+<div class="text-right text-sm text-gray-500">
+Wild Mustard<br>(Sinapis arvensis)
+</div>
+</div>
+
+<ul class="data-list">
+<li class="data-item">
+<div class="item-icon"><i class="fas fa-flask"></i></div>
+<div class="item-content">
+<h4>Experimental Treatments</h4>
+<p>8 herbicide doses + 3 drought levels.</p>
+</div>
+</li>
+
+<li class="data-item">
+<div class="item-icon"><i class="fas fa-map-marker-alt"></i></div>
+<div class="item-content">
+<h4>Facility & Imaging</h4>
+<p>PhenoLab UCPH, automated RGB imaging.</p>
+</div>
+</li>
+
+<li class="data-item">
+<div class="item-icon"><i class="fas fa-calendar-alt"></i></div>
+<div class="item-content">
+<h4>Temporal Coverage</h4>
+<p>Two independent trials capturing variability.</p>
+</div>
+</li>
+</ul>
+
+</div>
+
+<!-- RIGHT -->
+<div class="visual-column">
+
+<div class="image-card">
+<h3 class="text-lg font-bold mb-2">Temporal Pairing Strategy</h3>
+<p class="text-sm text-gray-500 mb-4">
+Model learns to map early-stage observation (Input) to future state (Target).
+</p>
+
+<div class="pairing-visual">
+
+<div class="flex flex-col items-center gap-2">
+<div class="plant-frame">
+<img src="../media/input.png" alt="Day T Input">
+</div>
+<span class="font-bold text-sm text-gray-600">Day T (Input)</span>
+</div>
+
+<div class="arrow-connector">
+<div class="time-badge">Gap: 7–19 Days</div>
+</div>
+
+<div class="flex flex-col items-center gap-2">
+<div class="plant-frame">
+<img src="../media/target.png" alt="Day T+N Target">
+</div>
+<span class="font-bold text-sm text-gray-600">Day T+N (Target)</span>
+</div>
+
+</div>
+</div>
+
+<div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+<h3 class="text-md font-bold text-gray-700 mb-2">Dataset Split (88:12)</h3>
+<div class="split-bar">
+<div class="bg-blue-600" style="width:88%; text-align:center;">Train: 4,980</div>
+<div class="bg-green-500" style="width:12%; text-align:center;">Test: 689</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+<p>LeafCast: Lightweight Edge-Deployable Network</p>
+<p>9 / 15</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Dataset Samples</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#f3f4f6;
+    font-family:'Roboto',sans-serif;
+}
+
+.slide-container{
+    width:1280px;
+    height:720px;
+    background:white;
+    display:flex;
+    flex-direction:column;
+}
+
+.accent-bar{
+    height:8px;
+    background:#901A1E;
+}
+
+.header{
+    padding:30px 60px 10px 60px;
+}
+
+.title-text{
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;
+    margin:0;
+    color:#1a202c;
+}
+
+.subtitle{
+    font-size:14px;
+    color:#6b7280;
+    margin-top:6px;
+}
+
+.main{
+    flex:1;
+    padding:10px 60px 40px 60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.figure-box{
+    flex:1;
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    padding:20px;
+}
+
+.figure-box img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    border-radius:10px;
+}
+
+.info-bar{
+    margin-top:20px;
+    background:#f8fafc;
+    padding:18px;
+    border-left:5px solid #901A1E;
+    border-radius:0 10px 10px 0;
+}
+
+.info-bar h3{
+    margin:0 0 6px 0;
+    font-weight:700;
+    font-size:18px;
+    color:#1f2937;
+}
+
+.info-bar p{
+    margin:0;
+    font-size:14px;
+    color:#4b5563;
+}
+
+.footer{
+    padding:20px 60px;
+    font-size:12px;
+    color:#9ca3af;
+    border-top:1px solid #f3f4f6;
+    display:flex;
+    justify-content:space-between;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slide-container">
+
+<div class="accent-bar"></div>
+
+<div class="header">
+<h1 class="title-text">Dataset & Temporal Pairing</h1>
+<p class="subtitle">Experimental setup and data construction strategy</p>
+</div>
+
+<div class="main">
+
+<div class="figure-box">
+    <!-- IMPORTANT: because we are inside slides/ -->
+    <img src="../media/sample_images.svg" alt="Dataset Samples">
+</div>
+
+<div class="info-bar">
+    <h3>Experimental Setup</h3>
+    <p>
+        Representative temporal pairs sampled from the dataset.
+        Each pair illustrates early-stage input and future-state target
+        separated by 14–19 days. Samples span multiple plant IDs and
+        treatment conditions to ensure variability and generalization.
+    </p>
+</div>
+
+</div>
+
+<div class="footer">
+    <div>LeafCast: Lightweight Edge-Deployable Network</div>
+    <div>10 /15</div>
+</div>
+
+</div>
+
+</body>
+</html>

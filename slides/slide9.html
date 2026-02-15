@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Results and Performance Metrics</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Roboto:wght@300;400;500;700;900&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .accent-bar {
+            background-color: #901A1E; /* UCPH Red */
+            height: 10px;
+            width: 100%;
+        }
+        .header {
+            padding: 10px 60px 10px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            color: #1a202c;
+            font-size: 2.2rem;
+            line-height: 1.1;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px 60px 40px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Metric Tiles Styles */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .metric-card-large {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            border-left: 6px solid #901A1E;
+        }
+        
+        .metric-value-lg {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #2d3748;
+            line-height: 1;
+        }
+        
+        .metric-label-lg {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+        
+        .metric-icon-lg {
+            font-size: 2rem;
+            color: #fed7d7;
+        }
+
+        /* Plant Specific Row */
+        .plant-metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .metric-card-small {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 15px 20px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .metric-card-small::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #48bb78; /* Green for plant metrics */
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .metric-value-sm {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2f855a;
+        }
+        .metric-label-sm {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.7rem;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        /* Bottom Section: Qualitative & Chart */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            flex: 1;
+        }
+        
+        .qualitative-box {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chart-box {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .check-icon {
+            color: #38a169;
+            margin-top: 3px;
+        }
+        
+        .feature-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .footer {
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            border-top: 1px solid #f7fafc;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Accent Bar -->
+<div class="accent-bar"></div>
+<!-- Header -->
+<div class="header">
+<div>
+<h1 class="title-text">Results: Accuracy &amp; Convergence</h1>
+<p class="text-gray-500 font-sans text-sm mt-1">Evaluation on held-out test set (689 pairs)</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Performance Evaluation</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- Row 1: Global Metrics -->
+<div class="metrics-row">
+<div class="metric-card-large">
+<div>
+<div class="metric-value-lg">34.17 <span class="text-2xl text-gray-400 font-normal">dB</span></div>
+<div class="metric-label-lg">Global PSNR</div>
+<p class="text-sm text-gray-400 mt-1">Peak Signal-to-Noise Ratio</p>
+</div>
+<div class="metric-icon-lg">
+<i class="fas fa-chart-line"></i>
+</div>
+</div>
+<div class="metric-card-large" style="border-left-color: #3182ce;">
+<div>
+<div class="metric-value-lg">0.935</div>
+<div class="metric-label-lg">Global SSIM</div>
+<p class="text-sm text-gray-400 mt-1">Structural Similarity Index</p>
+</div>
+<div class="metric-icon-lg" style="color: #bee3f8;">
+<i class="fas fa-object-group"></i>
+</div>
+</div>
+</div>
+<!-- Row 2: Plant-Specific Metrics -->
+<div class="plant-metrics-row">
+<div class="metric-card-small">
+<div class="metric-label-sm">Plant-PSNR (Growth Regions)</div>
+<div class="metric-value-sm">27.52 <span class="text-sm text-gray-500">dB</span></div>
+<p class="text-xs text-gray-400 mt-2">Focused on biological changes</p>
+</div>
+<div class="metric-card-small">
+<div class="metric-label-sm">Plant-SSIM</div>
+<div class="metric-value-sm">0.963</div>
+<p class="text-xs text-gray-400 mt-2">High structural fidelity on leaves</p>
+</div>
+<div class="metric-card-small">
+<div class="metric-label-sm">Green-PSNR</div>
+<div class="metric-value-sm">33.84 <span class="text-sm text-gray-500">dB</span></div>
+<p class="text-xs text-gray-400 mt-2">Accuracy in chlorophyll channel</p>
+</div>
+</div>
+<!-- Row 3: Qualitative & Chart -->
+<div class="bottom-section">
+<!-- Qualitative Observations -->
+<div class="qualitative-box">
+<h3 class="section-title">Qualitative Observations</h3>
+<div class="feature-list">
+<div class="feature-item">
+<i class="fas fa-check-circle check-icon"></i>
+<p class="feature-text"><strong>Leaf Expansion:</strong> Correctly synthesizes shape and position of new leaves emerging during prediction window.</p>
+</div>
+<div class="feature-item">
+<i class="fas fa-check-circle check-icon"></i>
+<p class="feature-text"><strong>Stress Response:</strong> Captures yellowing and purple discoloration in herbicide-treated plants.</p>
+</div>
+<div class="feature-item">
+<i class="fas fa-check-circle check-icon"></i>
+<p class="feature-text"><strong>Structural Dynamics:</strong> Reproduces leaf curling and senescence (browning/collapse) accurately.</p>
+</div>
+</div>
+</div>
+<!-- Performance Comparison Chart -->
+<div class="chart-box">
+<h3 class="section-title">Competitive with Heavy Baselines</h3>
+<div style="height: 140px; width: 100%;">
+<canvas id="performanceChart"></canvas>
+</div>
+<p class="text-xs text-center text-gray-400 mt-2">LeafCast achieves ~98% of Pix2Pix quality with 55× fewer parameters</p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>11 / 15</p>
+</div>
+</div>
+<script>
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Global PSNR', 'Green PSNR', 'Plant PSNR'],
+            datasets: [
+                {
+                    label: 'LeafCast (3.9M Params)',
+                    data: [34.17, 33.84, 27.52],
+                    backgroundColor: 'rgba(144, 26, 30, 0.8)', // UCPH Red
+                    borderColor: 'rgba(144, 26, 30, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Pix2Pix (217M Params)',
+                    data: [34.73, 34.52, 28.14],
+                    backgroundColor: 'rgba(203, 213, 224, 0.8)', // Gray
+                    borderColor: 'rgba(160, 174, 192, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12,
+                        font: { size: 10 }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 25,
+                    max: 38,
+                    grid: {
+                        display: true,
+                        color: 'rgba(0,0,0,0.05)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

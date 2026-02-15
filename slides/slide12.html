@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Conclusion & Future Work</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+  body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+  .slide-container { width: 1280px; height: 720px; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; }
+  .accent-bar { background-color: #901A1E; height: 8px; width: 100%; flex-shrink: 0; }
+  .header { padding: 18px 50px 8px 50px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .title-text { font-family: 'Playfair Display', serif; color: #1a202c; font-size: 1.9rem; margin: 0; line-height: 1.1; }
+  .header-subtitle { font-family: 'Roboto', sans-serif; font-size: 0.8rem; color: #718096; margin: 2px 0 0 0; }
+  .header-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: #a0aec0; }
+  .main-content { flex: 1; padding: 15px 50px 45px 50px; display: grid; grid-template-columns: 1.2fr 0.9fr; gap: 30px; min-height: 0; }
+  .left-column { display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+  .section-box { background-color: white; border-left: 5px solid #cbd5e0; padding: 0 0 0 18px; }
+  .section-box.primary { border-left-color: #901A1E; }
+  .box-title { font-family: 'Roboto', sans-serif; font-size: 1.25rem; font-weight: 700; color: #2d3748; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .contribution-list { display: flex; flex-direction: column; gap: 10px; }
+  .contribution-item { display: flex; gap: 12px; background-color: #fff5f5; padding: 10px 12px; border-radius: 6px; border: 1px solid #fed7d7; }
+  .item-icon { color: #901A1E; font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+  .item-text strong { display: block; color: #1a202c; font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+  .item-text p { color: #4a5568; font-family: 'Lato', sans-serif; font-size: 0.8rem; margin: 0; line-height: 1.3; }
+  .future-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .future-item { display: flex; gap: 8px; align-items: center; }
+  .future-dot { width: 6px; height: 6px; background-color: #718096; border-radius: 50%; flex-shrink: 0; }
+  .future-text { font-family: 'Lato', sans-serif; font-size: 0.85rem; color: #4a5568; }
+
+  /* ANIMATED CHARACTER STYLES */
+  .right-column { 
+    flex: 0.9; 
+    background-color: #f8fafc; 
+    border-radius: 12px; 
+    padding: 18px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .character-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .character {
+    width: 110px;
+    height: 110px;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    animation: bounce 2s infinite ease-in-out;
+    box-shadow: 0 10px 30px rgba(72, 187, 120, 0.3);
+    position: relative;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-18px) scale(1.05); }
+  }
+
+  /* Eyes Container */
+  .eyes-container {
+    position: absolute;
+    width: 70px;
+    height: 32px;
+    top: 32px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Individual Eye */
+  .eye {
+    position: relative;
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Eye White - Circular */
+  .eye-white {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    border: 2.5px solid #1a202c;
+    top: 1px;
+    left: 1px;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Pupil */
+  .pupil {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #1a202c;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    animation: pupilMove 4s infinite;
+  }
+
+  /* Pupil shine/reflection */
+  .pupil::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    opacity: 0.9;
+  }
+
+  /* Eyelids - Top */
+  .eyelid-top {
+    position: absolute;
+    width: 28px;
+    height: 13px;
+    top: -1px;
+    left: -2px;
+    background-color: rgba(72, 187, 120, 0.95);
+    border-radius: 50% 50% 0 0;
+    z-index: 3;
+    animation: eyelidTopBlink 3s infinite;
+  }
+
+  /* Eyelids - Bottom */
+  .eyelid-bottom {
+    position: absolute;
+    width: 28px;
+    height: 13px;
+    bottom: -1px;
+    left: -2px;
+    background-color: rgba(72, 187, 120, 0.95);
+    border-radius: 0 0 50% 50%;
+    z-index: 3;
+    animation: eyelidBottomBlink 3s infinite;
+  }
+
+  /* Top Eyelashes */
+  .eyelashes-top {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 4;
+  }
+
+  .lash {
+    width: 1.5px;
+    height: 6px;
+    background-color: #1a202c;
+    border-radius: 50%;
+    animation: lashBlink 3s infinite;
+  }
+
+  .lash:nth-child(1) { transform: rotate(-25deg); animation-delay: 0s; }
+  .lash:nth-child(2) { transform: rotate(-10deg); animation-delay: 0.05s; }
+  .lash:nth-child(3) { transform: rotate(0deg); animation-delay: 0.1s; }
+  .lash:nth-child(4) { transform: rotate(10deg); animation-delay: 0.15s; }
+  .lash:nth-child(5) { transform: rotate(25deg); animation-delay: 0.2s; }
+
+  /* Bottom Eyelashes */
+  .eyelashes-bottom {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 4;
+  }
+
+  .lash-bottom {
+    width: 1.2px;
+    height: 4px;
+    background-color: #1a202c;
+    border-radius: 50%;
+    animation: lashBlinkBottom 3s infinite;
+  }
+
+  .lash-bottom:nth-child(1) { transform: rotate(25deg); animation-delay: 0s; }
+  .lash-bottom:nth-child(2) { transform: rotate(10deg); animation-delay: 0.05s; }
+  .lash-bottom:nth-child(3) { transform: rotate(0deg); animation-delay: 0.1s; }
+  .lash-bottom:nth-child(4) { transform: rotate(-10deg); animation-delay: 0.15s; }
+
+  @keyframes eyelidTopBlink {
+    0%, 8%, 15%, 100% { height: 0; }
+    9%, 14% { height: 13px; }
+  }
+
+  @keyframes eyelidBottomBlink {
+    0%, 8%, 15%, 100% { height: 0; }
+    9%, 14% { height: 13px; }
+  }
+
+  @keyframes lashBlink {
+    0%, 8%, 15%, 100% { opacity: 1; transform: rotate(var(--rotation, 0deg)) translateY(0); }
+    9%, 14% { opacity: 0.3; transform: rotate(var(--rotation, 0deg)) translateY(-2px); }
+  }
+
+  @keyframes lashBlinkBottom {
+    0%, 8%, 15%, 100% { opacity: 1; transform: rotate(var(--rotation, 0deg)) translateY(0); }
+    9%, 14% { opacity: 0.3; transform: rotate(var(--rotation, 0deg)) translateY(2px); }
+  }
+
+  @keyframes pupilMove {
+    0%, 25% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-30%, -40%); }
+    75% { transform: translate(-60%, -50%); }
+    100% { transform: translate(-50%, -50%); }
+  }
+
+  /* Mouth */
+  .mouth {
+    position: absolute;
+    width: 22px;
+    height: 14px;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top: none;
+    border-radius: 0 0 22px 22px;
+    animation: mouthTalk 0.5s infinite 1.2s;
+    z-index: 1;
+  }
+
+  @keyframes mouthTalk {
+    0%, 100% { height: 14px; }
+    50% { height: 18px; }
+  }
+
+  /* Speech Bubble */
+  .speech-bubble {
+    background-color: white;
+    border: 2px solid #901A1E;
+    border-radius: 12px;
+    padding: 12px 14px;
+    max-width: 240px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(144, 26, 30, 0.15);
+    animation: slideIn 0.6s ease-out;
+  }
+
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 10px solid #901A1E;
+    bottom: -10px;
+    left: 20px;
+  }
+
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 8px solid white;
+    bottom: -7px;
+    left: 22px;
+  }
+
+  .bubble-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-mark {
+    display: inline-block;
+    animation: wiggle 0.5s infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  /* Info boxes */
+  .info-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .info-box-mini {
+    background-color: white;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border-left: 3px solid #901A1E;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    color: #4a5568;
+    line-height: 1.3;
+  }
+
+  .info-box-mini strong {
+    color: #1a202c;
+    font-weight: 700;
+  }
+
+  /* Contact footer */
+  .contact-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 2px solid #e2e8f0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .contact-footer h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #901A1E;
+    margin: 0 0 6px 0;
+  }
+
+  .contact-footer p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    color: #718096;
+    margin: 0;
+  }
+
+  /* Rotating badges */
+  .rotating-badges {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0;
+  }
+
+  .badge-mini {
+    background-color: #fff5f5;
+    color: #901A1E;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+  }
+
+  .badge-mini:nth-child(1) { animation-delay: 0s; }
+  .badge-mini:nth-child(2) { animation-delay: 0.4s; }
+  .badge-mini:nth-child(3) { animation-delay: 0.8s; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+  }
+
+  .footer { padding: 10px 50px; display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto', sans-serif; font-size: 0.75rem; color: #a0aec0; border-top: 1px solid #f7fafc; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="accent-bar"></div>
+<div class="header">
+<div>
+<h1 class="title-text">Conclusion & Future Work</h1>
+<p class="header-subtitle">Summary of contributions and path forward</p>
+</div>
+<p class="header-label">Final Remarks</p>
+</div>
+<div class="main-content">
+<div class="left-column">
+<div class="section-box primary">
+<h2 class="box-title"><i class="fas fa-trophy" style="color: #fbbf24;"></i> Key Contributions</h2>
+<div class="contribution-list">
+<div class="contribution-item">
+<i class="fas fa-compress-arrows-alt item-icon"></i>
+<div class="item-text">
+<strong>Extreme Efficiency</strong>
+<p>Achieved 55× parameter reduction (3.9M vs 217M) vs Pix2Pix.</p>
+</div>
+</div>
+<div class="contribution-item">
+<i class="fas fa-bolt item-icon"></i>
+<div class="item-text">
+<strong>Real-Time Deployment</strong>
+<p>Enabled 83.60 ms inference on CPU edge hardware via ONNX.</p>
+</div>
+</div>
+<div class="contribution-item">
+<i class="fas fa-leaf item-icon"></i>
+<div class="item-text">
+<strong>Domain-Aware Architecture</strong>
+<p>Integrated Plant Attention & Texture Refinement for 34.17 dB PSNR quality.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section-box">
+<h2 class="box-title"><i class="fas fa-road" style="color: #3b82f6;"></i> Future Directions</h2>
+<div class="future-list">
+<div class="future-item"><div class="future-dot"></div><p class="future-text">Cross-species generalization</p></div>
+<div class="future-item"><div class="future-dot"></div><p class="future-text">Field domain adaptation</p></div>
+<div class="future-item"><div class="future-dot"></div><p class="future-text">Environment conditioning</p></div>
+<div class="future-item"><div class="future-dot"></div><p class="future-text">Uncertainty estimation</p></div>
+</div>
+</div>
+</div>
+
+<!-- ANIMATED CHARACTER SECTION -->
+<div class="right-column">
+<div class="character-container">
+<!-- Animated Character with Enhanced Eyes -->
+<div class="character">
+🌿
+<!-- Eyes Container -->
+<div class="eyes-container">
+<!-- Left Eye -->
+<div class="eye">
+<div class="eyelid-top"></div>
+<div class="eye-white">
+<div class="pupil"></div>
+</div>
+<div class="eyelashes-top">
+<div class="lash"></div>
+<div class="lash"></div>
+<div class="lash"></div>
+<div class="lash"></div>
+<div class="lash"></div>
+</div>
+<div class="eyelashes-bottom">
+<div class="lash-bottom"></div>
+<div class="lash-bottom"></div>
+<div class="lash-bottom"></div>
+<div class="lash-bottom"></div>
+</div>
+<div class="eyelid-bottom"></div>
+</div>
+
+<!-- Right Eye -->
+<div class="eye">
+<div class="eyelid-top"></div>
+<div class="eye-white">
+<div class="pupil"></div>
+</div>
+<div class="eyelashes-top">
+<div class="lash"></div>
+<div class="lash"></div>
+<div class="lash"></div>
+<div class="lash"></div>
+<div class="lash"></div>
+</div>
+<div class="eyelashes-bottom">
+<div class="lash-bottom"></div>
+<div class="lash-bottom"></div>
+<div class="lash-bottom"></div>
+<div class="lash-bottom"></div>
+</div>
+<div class="eyelid-bottom"></div>
+</div>
+</div>
+
+<!-- Mouth -->
+<div class="mouth"></div>
+</div>
+
+<!-- Speech Bubble -->
+<div class="speech-bubble">
+<p class="bubble-text">
+Questions <span class="question-mark">?</span>
+</p>
+</div>
+
+<!-- Rotating Info Badges -->
+<div class="rotating-badges">
+<div class="badge-mini">🚀 Edge AI</div>
+<div class="badge-mini">📊 55× Lighter</div>
+<div class="badge-mini">⚡ Real-Time</div>
+</div>
+
+<!-- Info Boxes -->
+<div class="info-boxes">
+<div class="info-box-mini">
+<strong><i class="fas fa-hand-holding-usd"></i> Funding:</strong><br/>
+NOVO Nordisk Fonden (NNF21OC0068954)
+</div>
+<div class="info-box-mini">
+<strong><i class="fas fa-university"></i> Infrastructure:</strong><br/>
+PhenoLab, University of Copenhagen
+</div>
+</div>
+</div>
+
+<!-- Contact Footer -->
+<div class="contact-footer">
+<h3>Thank You!</h3>
+<p><i class="fas fa-envelope"></i> atk@plen.ku.dk</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>LeafCast: A Lightweight Edge-Deployable Network</p>
+<p>15 / 15</p>
+</div>
+</div>
+</body>
+</html>

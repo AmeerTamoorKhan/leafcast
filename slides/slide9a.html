@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Results: Accuracy & Convergence</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#f3f4f6;
+    font-family:'Roboto',sans-serif;
+}
+
+.slide-container{
+    width:1280px;
+    height:720px;
+    background:white;
+    display:flex;
+    flex-direction:column;
+}
+
+.accent-bar{
+    height:8px;
+    background:#901A1E;
+}
+
+.header{
+    padding:30px 60px 10px 60px;
+}
+
+.title-text{
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;
+    margin:0;
+    color:#1a202c;
+}
+
+.subtitle{
+    font-size:14px;
+    color:#6b7280;
+    margin-top:6px;
+}
+
+.main{
+    flex:1;
+    padding:10px 60px 30px 60px;
+    display:flex;
+    gap:40px;
+    min-height:0; /* Critical for flex children to shrink properly */
+}
+
+/* LEFT SIDE */
+
+.metrics{
+    width:420px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    flex-shrink:0; /* Keep metrics at fixed width */
+}
+
+.metric-card{
+    background:#f8fafc;
+    border-left:5px solid #901A1E;
+    padding:18px;
+    border-radius:0 12px 12px 0;
+}
+
+.metric-value{
+    font-size:32px;
+    font-weight:900;
+    color:#1f2937;
+}
+
+.metric-label{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:4px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+}
+
+.metric-desc{
+    font-size:13px;
+    color:#4b5563;
+    margin-top:6px;
+    line-height:1.4;
+}
+
+/* RIGHT SIDE FIGURE - FILLS ENTIRE SPACE */
+
+.figure-box{
+    flex:1; /* Takes all remaining space */
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    min-height:0; /* Allow shrinking */
+    min-width:0; /* Allow shrinking */
+    padding:5px;
+}
+
+/* CRITICAL FIX: Figure fills entire container */
+.figure-box img,
+.figure-box object,
+.figure-box svg{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    padding:0;
+    margin:0;
+    flex-shrink:0; /* Prevent shrinking below natural size */
+}
+
+.footer{
+    padding:20px 60px;
+    font-size:12px;
+    color:#9ca3af;
+    border-top:1px solid #f3f4f6;
+    display:flex;
+    justify-content:space-between;
+    flex-shrink:0; /* Keep footer at fixed height */
+}
+</style>
+</head>
+
+<body>
+
+<div class="slide-container">
+
+<div class="accent-bar"></div>
+
+<div class="header">
+<h1 class="title-text">Results: Accuracy & Convergence</h1>
+<p class="subtitle">Evaluation on held-out test set (689 pairs)</p>
+</div>
+
+<div class="main">
+
+<!-- LEFT COLUMN -->
+<div class="metrics">
+
+<div class="metric-card">
+<div class="metric-value">689</div>
+<div class="metric-label">Test Pairs</div>
+<div class="metric-desc">
+Strictly unseen temporal transitions from independent trials.
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-value">Stable</div>
+<div class="metric-label">Convergence</div>
+<div class="metric-desc">
+Training converged without mode collapse. Loss curves show smooth optimization with no divergence in later epochs.
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-value">High</div>
+<div class="metric-label">Visual Fidelity</div>
+<div class="metric-desc">
+Generated future states closely match real observations across multiple gap lengths (7–19 days).
+</div>
+</div>
+
+</div>
+
+<!-- RIGHT COLUMN - FIGURE FILLS ENTIRE HEIGHT -->
+<div class="figure-box">
+    <img src="../media/leafcast_inference_results.svg" alt="Generated vs Real Comparison">
+</div>
+
+</div>
+
+<div class="footer">
+    <div>LeafCast: Lightweight Edge-Deployable Network</div>
+    <div>12 / 15</div>
+</div>
+
+</div>
+
+</body>
+</html>
