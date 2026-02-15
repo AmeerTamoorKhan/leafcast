@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Slide Show (Perfect Fit)</title>
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --panel:#111827;
+      --border:#243045;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --accent:#22c55e;
+      --blue:#3b82f6;
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{ height:100%; }
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+
+    .topbar{
+      height:52px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 14px;
+      border-bottom:1px solid var(--border);
+      background:rgba(17,24,39,.85);
+      backdrop-filter: blur(8px);
+      flex:0 0 auto;
+    }
+    .title{
+      font-weight:700;
+      letter-spacing:.2px;
+      font-size:14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      white-space:nowrap;
+    }
+    .pill{
+      font-size:11px;
+      color:var(--muted);
+      border:1px solid var(--border);
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(15,23,42,.55);
+    }
+    .right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .hint{
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .hint kbd{
+      background:#0f172a;
+      border:1px solid var(--border);
+      padding:2px 6px;
+      border-radius:6px;
+      margin:0 2px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size:11px;
+      color:var(--text);
+    }
+    .linkbtn{
+      font-size:12px;
+      color:var(--muted);
+      text-decoration:none;
+      border:1px solid var(--border);
+      padding:6px 10px;
+      border-radius:10px;
+      background:rgba(15,23,42,.6);
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .linkbtn:hover{ color:var(--text); border-color:var(--blue); }
+
+    .stage{
+      flex:1 1 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      min-height:0;
+    }
+
+    .frame{
+      width:min(1280px, 96vw);
+      aspect-ratio: 16 / 9;
+      background:#000;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      position:relative;
+    }
+
+    iframe{
+      position:absolute;
+      left:0;
+      top:0;
+      width:1280px;
+      height:720px;
+      border:0;
+      display:block;
+      background:#fff;
+      transform-origin: top left;
+      will-change: transform;
+    }
+
+    .nav{
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      border-top:1px solid var(--border);
+      background:rgba(17,24,39,.85);
+      backdrop-filter: blur(8px);
+      padding:0 14px;
+      flex:0 0 auto;
+    }
+    .btn{
+      width:42px; height:42px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--panel);
+      color:var(--text);
+      cursor:pointer;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:.15s ease;
+      user-select:none;
+    }
+    .btn:hover:not(:disabled){ transform: scale(1.05); border-color:var(--blue); }
+    .btn:disabled{ opacity:.35; cursor:not-allowed; }
+
+    .dots{ display:flex; gap:6px; align-items:center; }
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background:#334155;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .dot.active{ background:var(--accent); transform: scale(1.25); }
+
+    .counter{
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size:12px;
+      color:var(--muted);
+      min-width:70px;
+      text-align:center;
+    }
+
+    .frame:fullscreen{
+      width:100vw;
+      height:100vh;
+      aspect-ratio:auto;
+      border-radius:0;
+      border:0;
+      box-shadow:none;
+      background:#000;
+    }
+    .frame:-webkit-full-screen{
+      width:100vw;
+      height:100vh;
+      aspect-ratio:auto;
+      border-radius:0;
+      border:0;
+      box-shadow:none;
+      background:#000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="title">
+      <span id="deckTitle">LeafCast Presentation</span>
+      <span class="pill" id="modePill">Fit: Contain (no crop)</span>
+    </div>
+    <div class="right">
+      <div class="hint"><kbd>←</kbd><kbd>→</kbd> <kbd>Space</kbd></div>
+      <a class="linkbtn" href="#" id="openBtn">Open slide</a>
+      <a class="linkbtn" href="#" id="fitBtn">Contain</a>
+      <a class="linkbtn" href="#" id="fsBtn">Fullscreen</a>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="frame" id="frame">
+      <iframe id="slideFrame" src="slides/slide1.html" title="Slide"></iframe>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn" id="prevBtn" aria-label="Previous">‹</button>
+    <div class="dots" id="dots"></div>
+    <div class="counter" id="counter">1 / 12</div>
+    <button class="btn" id="nextBtn" aria-label="Next">›</button>
+  </div>
+
+<script>
+  // =========================
+  // CONFIG
+  // =========================
+    const SLIDES = [
+    "slides/slide1.html",
+    "slides/slide2.html",
+    "slides/slide3.html",
+    "slides/slide4.html",
+    "slides/slide5.html",
+    "slides/slide6.html",
+    "slides/slide7.html",
+    "slides/slide7a.html",
+    "slides/slide8.html",
+    "slides/slide8a.html",   // NEW
+    "slides/slide9.html",
+    "slides/slide9a.html",   // NEW
+    "slides/slide10.html",
+    "slides/slide11.html",
+    "slides/slide12.html"
+    ];
+
+    const TOTAL = SLIDES.length;
+    const SLIDE_PATH = (n) => SLIDES[n-1];
+
+  // fixed slide design size
+  const SLIDE_W = 1280;
+  const SLIDE_H = 720;
+
+  // =========================
+  // STATE
+  // =========================
+  let current = 1;
+  let fitMode = 'contain'; // 'contain' | 'cover'
+  let isInnerDeckActive = false; // tracks if we're viewing slide 3 (inner deck)
+
+  // =========================
+  // ELEMENTS
+  // =========================
+  const frameEl  = document.getElementById('frame');
+  const iframeEl = document.getElementById('slideFrame');
+
+  const prevBtn  = document.getElementById('prevBtn');
+  const nextBtn  = document.getElementById('nextBtn');
+  const counter  = document.getElementById('counter');
+
+  const dotsWrap = document.getElementById('dots');
+  const fsBtn    = document.getElementById('fsBtn');
+  const openBtn  = document.getElementById('openBtn');
+  const fitBtn   = document.getElementById('fitBtn');
+  const modePill = document.getElementById('modePill');
+
+  // =========================
+  // DOTS
+  // =========================
+  for (let i = 1; i <= TOTAL; i++){
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' active' : '');
+    d.title = `Slide ${i}`;
+    d.addEventListener('click', () => go(i));
+    dotsWrap.appendChild(d);
+  }
+
+  // =========================
+  // PERFECT FIT (no drifting)
+  // =========================
+  function fitSlideToFrame(){
+    const fw = frameEl.clientWidth;
+    const fh = frameEl.clientHeight;
+
+    const sx = fw / SLIDE_W;
+    const sy = fh / SLIDE_H;
+
+    const s = (fitMode === 'cover') ? Math.max(sx, sy) : Math.min(sx, sy);
+
+    const scaledW = SLIDE_W * s;
+    const scaledH = SLIDE_H * s;
+
+    const offX = (fw - scaledW) / 2;
+    const offY = (fh - scaledH) / 2;
+
+    iframeEl.style.left = `${offX}px`;
+    iframeEl.style.top  = `${offY}px`;
+    iframeEl.style.transform = `scale(${s})`;
+  }
+
+  iframeEl.addEventListener('load', () => {
+    requestAnimationFrame(fitSlideToFrame);
+    // Update inner deck flag when a new slide loads
+    isInnerDeckActive = (current === 3);
+    console.log(`Loaded slide ${current}, inner deck active: ${isInnerDeckActive}`);
+  });
+  
+  window.addEventListener('resize', () => requestAnimationFrame(fitSlideToFrame), { passive:true });
+
+  function refitSoon(){
+    requestAnimationFrame(() => {
+      fitSlideToFrame();
+      requestAnimationFrame(fitSlideToFrame);
+    });
+  }
+  document.addEventListener('fullscreenchange', refitSoon);
+  document.addEventListener('webkitfullscreenchange', refitSoon);
+
+  // =========================
+  // NAVIGATION
+  // =========================
+    function updateUI(){
+    iframeEl.src = SLIDE_PATH(current);
+
+    counter.textContent = `${current} / ${TOTAL}`;
+    prevBtn.disabled = current === 1;
+    nextBtn.disabled = current === TOTAL;
+
+    [...dotsWrap.children].forEach((d, idx) => {
+        d.classList.toggle('active', idx === (current - 1));
+    });
+
+    openBtn.href = SLIDE_PATH(current);
+
+    // 🔥 FORCE focus back to parent after slide change
+    setTimeout(() => {
+        frameEl.focus();
+        document.body.focus();
+    }, 50);
+    }
+
+
+  function next(){ 
+    if (current < TOTAL){ 
+      current++; 
+      updateUI(); 
+    } 
+  }
+  
+  function prev(){ 
+    if (current > 1){ 
+      current--; 
+      updateUI(); 
+    } 
+  }
+  
+  function go(n){
+    current = Math.max(1, Math.min(TOTAL, n));
+    updateUI();
+  }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+    document.addEventListener('keydown', (e) => {
+
+    // If slide 3 is active, DO NOT handle keys
+    if (current === 3) return;
+
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        next();
+    }
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prev();
+    }
+    });
+
+
+  // =========================
+  // FIT MODE TOGGLE
+  // =========================
+  function setFitMode(mode){
+    fitMode = mode;
+    fitBtn.textContent = (fitMode === 'cover') ? 'Cover' : 'Contain';
+    modePill.textContent = (fitMode === 'cover')
+      ? 'Fit: Cover (crop edges)'
+      : 'Fit: Contain (no crop)';
+    fitSlideToFrame();
+  }
+
+  fitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    setFitMode(fitMode === 'contain' ? 'cover' : 'contain');
+  });
+
+  // =========================
+  // FULLSCREEN
+  // =========================
+  function toggleFullscreen(){
+    const isFS = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFS){
+      (frameEl.requestFullscreen || frameEl.webkitRequestFullscreen || (()=>{})).call(frameEl);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen || (()=>{})).call(document);
+    }
+  }
+
+  fsBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleFullscreen();
+  });
+
+  document.addEventListener('fullscreenchange', () => {
+    fsBtn.textContent = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    fsBtn.textContent = document.webkitFullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+  });
+
+  // =========================
+  // IFRAME MESSAGE HANDLER - ✅ FIXED
+  // =========================
+  // ✅ Only listen for messages when viewing slide 3 (the inner GAN deck)
+  window.addEventListener('message', (e) => {
+    // Safety check
+    if (location.origin !== "null" && e.origin !== location.origin) return;
+
+    // CRITICAL FIX: Only process if we're CURRENTLY viewing slide 3
+    if (current !== 3 || !isInnerDeckActive) {
+      return;
+    }
+
+    const msg = e.data || {};
+    
+    if (msg.type === 'DECK_NEXT') {
+    iframeEl.blur();
+    next();
+    }
+    else if (msg.type === 'DECK_PREV') {
+    iframeEl.blur();
+    prev();
+    }
+
+  });
+
+  // =========================
+  // INIT
+  // =========================
+  updateUI();
+  setFitMode('contain');
+  requestAnimationFrame(fitSlideToFrame);
+</script>
+
+</body>
+</html>
